@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject camera;
+    public GameObject mainCamera;
 
     public float movementSpeed = 5.0f;
     public float edgeMovementSpeed = 5.0f;
@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
 
      void Start()
     {   // PlayerController
-        Vector3 toCamera = camera.transform.position - transform.position;
+        Vector3 toCamera = mainCamera.transform.position - transform.position;
         distance = toCamera.magnitude;
         // Set the initial angle above the horizon
         theta = 45.0f;
@@ -44,8 +44,8 @@ public class CameraController : MonoBehaviour
             transform.position.z + distance * Mathf.Sin(Mathf.Deg2Rad * theta) * Mathf.Cos(Mathf.Deg2Rad * phi)
         );
 
-        camera.transform.position = newPosition;
-        camera.transform.LookAt(Vector3.fowrward);
+        mainCamera.transform.position = newPosition;
+        mainCamera.transform.LookAt(Vector3.forward);
     }
    
     public void UpdateCameraController()
@@ -74,8 +74,8 @@ public class CameraController : MonoBehaviour
                 distance * Mathf.Sin(Mathf.Deg2Rad * theta) * Mathf.Cos(Mathf.Deg2Rad * phi)
             );
 
-            camera.transform.position = transform.position + newPositionToRotate;
-            camera.transform.LookAt(transform.position);
+            mainCamera.transform.position = transform.position + newPositionToRotate;
+            mainCamera.transform.LookAt(transform.position);
         }
         else
         {
@@ -89,19 +89,19 @@ public class CameraController : MonoBehaviour
             distance * Mathf.Sin(Mathf.Deg2Rad * theta) * Mathf.Cos(Mathf.Deg2Rad * phi)
         );
 
-        camera.transform.position = transform.position + newPosition;
-        camera.transform.LookAt(transform.position);
+        mainCamera.transform.position = transform.position + newPosition;
+        mainCamera.transform.LookAt(transform.position);
 
         if (!isRotating)
         {
             if (Input.GetKey(KeyCode.Q))
             {
-                camera.transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0, Space.World);
+                mainCamera.transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0, Space.World);
             }
 
             if (Input.GetKey(KeyCode.E))
             {
-                camera.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
+                mainCamera.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
             }
 
             // WASD Movement
@@ -109,7 +109,7 @@ public class CameraController : MonoBehaviour
             float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
 
             Vector3 moveDirection = new Vector3(horizontal, 0, vertical);
-            moveDirection = camera.transform.TransformDirection(moveDirection);
+            moveDirection = mainCamera.transform.TransformDirection(moveDirection);
             moveDirection.y = 0; // Remove the vertical component
 
             transform.Translate(moveDirection, Space.World); // Apply movement to the pivot
@@ -131,7 +131,7 @@ public class CameraController : MonoBehaviour
                 if (Input.mousePosition.y >= Screen.height - edgeBorderSize)
                     edgeMovement += new Vector3(0, 0, edgeMovementSpeed * Time.deltaTime);
 
-                edgeMovement = camera.transform.TransformDirection(edgeMovement);
+                edgeMovement = GetComponent<Camera>().transform.TransformDirection(edgeMovement);
                 edgeMovement.y = 0; // Remove the vertical component
 
                 transform.Translate(edgeMovement, Space.World); // Apply movement to the pivot

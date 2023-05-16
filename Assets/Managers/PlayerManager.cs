@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     public void InitPlayerManager()
     {   // ExecutionManager
-        cameraController.InitCameraController();
+       // cameraController.InitCameraController();
         //objectPlacerController.InitPlacerController();
     }
 

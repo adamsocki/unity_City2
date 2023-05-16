@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     public float edgeBorderSize = 5.0f;
     public float rotationSpeed = 100.0f;
     public float rotationMouse = 300.0f;
-    public float zoomSpeed = 9555.0f;
+    public float zoomSpeed = 10.0f;
     public float minZoomDistance = 1.0f;
     public float maxZoomDistance = 30.0f;
 
@@ -23,18 +23,19 @@ public class CameraController : MonoBehaviour
     public float maxDistance = 35.0f;
     public float minTheta = 10.0f;
     public float maxTheta = 80.0f;
-    private float theta;
-    private float phi;
+    public float theta = 70.0f;
+    public float phi;
 
     public bool allowEdgeMovement;
 
 
-    public void InitCameraController()
+     void Start()
     {   // PlayerController
         Vector3 toCamera = camera.transform.position - transform.position;
         distance = toCamera.magnitude;
-        theta = 45.0f; // Set the initial angle above the horizon
-        phi = Vector3.SignedAngle(Vector3.forward, new Vector3(toCamera.x, 0, toCamera.z), Vector3.up);
+        // Set the initial angle above the horizon
+        theta = 45.0f;
+        phi = -Vector3.SignedAngle(-Vector3.forward, new Vector3(toCamera.x, 0, toCamera.z), Vector3.up);
 
         // Set the initial position of the camera based on the new theta value
         Vector3 newPosition = new Vector3(
@@ -44,7 +45,7 @@ public class CameraController : MonoBehaviour
         );
 
         camera.transform.position = newPosition;
-        camera.transform.LookAt(transform.position);
+        camera.transform.LookAt(Vector3.fowrward);
     }
    
     public void UpdateCameraController()

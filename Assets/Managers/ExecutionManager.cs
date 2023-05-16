@@ -7,13 +7,13 @@ public class ExecutionManager : MonoBehaviour
 
     public PlayerManager playerManager;
     // Start is called before the first frame update
-    void Start()
+    public void InitExecutionManager()
     {
         playerManager.InitPlayerManager();
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateExecutionManager()
     {
         playerManager.UpdatePlayerManager();
     }

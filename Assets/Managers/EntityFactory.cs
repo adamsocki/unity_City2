@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EntityType
-{
-    Unit
-}
+
 
 
 public class EntityFactory : MonoBehaviour

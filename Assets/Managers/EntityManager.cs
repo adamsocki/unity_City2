@@ -5,10 +5,11 @@ using UnityEngine;
 public enum EntityType
 {
     Building,
+    Resident,
+    Unit,
+
     EntityType_Count,
 }
-
-
 
 public class Entity
 {
@@ -48,28 +49,6 @@ public class EntityTypeBuffer
 
     public Entity[] entities;
 };
-
-//struct EntityManager
-//{
-//    int totalEntityManagerCapacity;
-//    int nextID;
-
-//    pubEntityTypeBuffer buffers[EntityType_Count];
-//    EntityInfo* entities;
-//};
-
-
-//struct Entity
-//{
-//    Vector2 postion;
-//    Vector2 size;
-
-//    //Sprite* sprite;
-
-//    bool toDelete;
-
-//    EntityHandle handle;
-//};
 
 
 public class EntityManager : MonoBehaviour
@@ -205,58 +184,30 @@ public class EntityManager : MonoBehaviour
         info.generation++;
     }
 
+    public void ResizeEntityManagerCapacity(int newCapacity)
+    {
+        // Ensure the new capacity is greater than the current one
+        if (newCapacity <= totalEntityManagerCapacity)
+        {
+            Debug.LogError("New capacity must be greater than current capacity.");
+            return;
+        }
+
+        // Create a new array with the new capacity
+        EntityInfo[] newEntities = new EntityInfo[newCapacity];
+
+        // Copy the contents of the old array to the new one
+        for (int i = 0; i < totalEntityManagerCapacity; i++)
+        {
+            newEntities[i] = entities[i];
+        }
+
+        // Replace the old array with the new one
+        entities = newEntities;
+
+        // Update the capacity value
+        totalEntityManagerCapacity = newCapacity;
+    }
+
+
 }
-//private Dictionary<int, Index> entities = new Dictionary<int, Index>();
-
-
-//public class Handle
-//{
-//    public int id;
-
-//    public Handle(int id)
-//    {
-//        this.id = id;
-//    }
-//}
-
-//public class Index
-//{
-//    public GameObject gameObject;
-
-//    public Index(GameObject gameObject)
-//    {
-//        this.gameObject = gameObject;
-//    }
-//}
-
-//public Handle AddEntity(GameObject gameObject)
-//{
-//    int id = nextEntityId++;
-//    entities.Add(id, new Index(gameObject));
-//    return new Handle(id);
-//}
-
-//public Index GetEntity(Handle handle)
-//{
-//    if (entities.TryGetValue(handle.id, out Index index))
-//    {
-//        return index;
-//    }
-//    return null;
-//}
-
-//public void RemoveEntity(Handle handle)
-//{
-//    entities.Remove(handle.id);
-//}
-
-
-
-//public void PlaceEntity(ObjectPlacerController objectPlacerController)
-//{
-//    entityFactory.CreateEntity(objectPlacerController);
-//}
-
-
-
-//}

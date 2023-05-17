@@ -5,17 +5,17 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public CameraController cameraController;
-    //public ObjectPlacerController objectPlacerController;
+    public EntityPlacementController entityPlacementController;
 
     public void InitPlayerManager()
     {   // ExecutionManager
-       // cameraController.InitCameraController();
-        //objectPlacerController.InitPlacerController();
+        // cameraController.InitCameraController();
+        entityPlacementController.InitEntityPlacementController();
     }
 
     public void UpdatePlayerManager()
     {   // ExecutionManager
         cameraController.UpdateCameraController();
-        //objectPlacerController.UpdatePlacerController();
+        entityPlacementController.UpdateEntityPlacementController();
     }
 }

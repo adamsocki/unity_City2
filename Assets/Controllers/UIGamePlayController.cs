@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class UIGamePlayController : MonoBehaviour
@@ -9,20 +10,50 @@ public class UIGamePlayController : MonoBehaviour
 
     public Button testEntityCreation;
     public EntityManager entityManager;
+    public EntityCreation[] entities;
     public EntityCreation unitEntityCreation;
     public EntityCreation buildingEntityCreation;
 
     public void InitUIGamePLayController()
     {
         testEntityCreation.onClick.AddListener(TestEntityCreation);
-        unitEntityCreation.InitEntityCreation();
-        buildingEntityCreation.InitEntityCreation();
+        foreach (EntityCreation entity in entities)
+        {
+            entity.InitEntityCreation();
+        }
+       // unitEntityCreation.InitEntityCreation();
+        //buildingEntityCreation.InitEntityCreation();
     }
     
     public void UpdateUIGamePLayController()
     {
-        
+        //foreach(EntityCreation entity in entities)
+        //{
+        //    if (entity.GetIsMenuOpen())
+        //    {
+        //        foreach(EntityCreation restOfEntities in entities)
+        //        {
+        //            if (restOfEntities != entity)
+        //            {
+        //                restOfEntities.TogglePopupButton();
+        //            }
+        //        }
+        //    }
+        //}
     }
+
+    public void PopupIsOpening(EntityCreation entityThatisOpening)
+    {
+        foreach (EntityCreation restOfEntitiesToClose in entities)
+        {
+            if (restOfEntitiesToClose != entityThatisOpening && restOfEntitiesToClose.GetIsMenuOpen())
+            {
+                restOfEntitiesToClose.TogglePopupButton();
+            }
+        }
+
+    }
+
 
     private void TestEntityCreation()
     {

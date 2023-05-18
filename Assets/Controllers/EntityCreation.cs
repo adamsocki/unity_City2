@@ -8,6 +8,9 @@ public class EntityCreation : MonoBehaviour
     public Button togglePopupButton;
     public Image creationPopupMenu;
     private bool isMenuOpen;
+
+    public UIGamePlayController uiGamePlayController;
+
     public EnumTypeDropdown unitTypeDropdown;
     public TemplateDropdown templateDropdown;
     public Button fabricateTemplateButton;
@@ -37,11 +40,23 @@ public class EntityCreation : MonoBehaviour
         templateManager.InitTemplateManager();
     }
 
-    private void TogglePopupButton()
+    public void TogglePopupButton()
     {
         isMenuOpen = !isMenuOpen;
-        creationPopupMenu.gameObject.SetActive(isMenuOpen);
+        if (isMenuOpen) 
+        {
+            uiGamePlayController.PopupIsOpening(this);
+        }
         
+        creationPopupMenu.gameObject.SetActive(isMenuOpen);
+
+        
+    }
+
+    // return bool for isMenuOpen
+    public bool GetIsMenuOpen()
+    {
+        return isMenuOpen;
     }
 
     

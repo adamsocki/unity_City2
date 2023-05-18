@@ -376,6 +376,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testEntityCreation: {fileID: 466226053}
   entityManager: {fileID: 851503113}
+  entities:
+  - {fileID: 448669361}
+  - {fileID: 1354566304}
   unitEntityCreation: {fileID: 1354566304}
   buildingEntityCreation: {fileID: 448669361}
 --- !u!1 &57409730
@@ -2475,6 +2478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   togglePopupButton: {fileID: 988886979}
   creationPopupMenu: {fileID: 530488461}
+  uiGamePlayController: {fileID: 37488881}
   unitTypeDropdown: {fileID: 0}
   templateDropdown: {fileID: 1488839370}
   fabricateTemplateButton: {fileID: 1301033773}
@@ -6536,6 +6540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   togglePopupButton: {fileID: 977891973}
   creationPopupMenu: {fileID: 1894199829}
+  uiGamePlayController: {fileID: 37488881}
   unitTypeDropdown: {fileID: 1834856453}
   templateDropdown: {fileID: 0}
   fabricateTemplateButton: {fileID: 316841422}

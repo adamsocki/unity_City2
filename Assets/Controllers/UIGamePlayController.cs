@@ -10,11 +10,13 @@ public class UIGamePlayController : MonoBehaviour
     public Button testEntityCreation;
     public EntityManager entityManager;
     public EntityCreation unitEntityCreation;
+    public EntityCreation buildingEntityCreation;
 
     public void InitUIGamePLayController()
     {
         testEntityCreation.onClick.AddListener(TestEntityCreation);
         unitEntityCreation.InitEntityCreation();
+        buildingEntityCreation.InitEntityCreation();
     }
     
     public void UpdateUIGamePLayController()

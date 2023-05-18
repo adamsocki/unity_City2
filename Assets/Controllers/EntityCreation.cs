@@ -9,8 +9,10 @@ public class EntityCreation : MonoBehaviour
     public Image creationPopupMenu;
     private bool isMenuOpen;
     public EnumTypeDropdown unitTypeDropdown;
+    public TemplateDropdown templateDropdown;
     public Button fabricateTemplateButton;
 
+    public TemplateType templateType;
     public TemplateManager templateManager;
 
     public void InitEntityCreation()
@@ -18,27 +20,38 @@ public class EntityCreation : MonoBehaviour
         isMenuOpen = false;
         creationPopupMenu.gameObject.SetActive(isMenuOpen);
         togglePopupButton.onClick.AddListener(TogglePopupButton);
-        fabricateButton.onClick.AddListener(FabricateTemplate);
-        unitTypeDropdown.InitEnumTypeDropdown();
+        fabricateTemplateButton.onClick.AddListener(FabricateTemplate);
 
 
-        tempalateManager.InitTempalteManager();
+        if (templateType == TemplateType.Unit)
+        { 
+            unitTypeDropdown.InitEnumTypeDropdown();
+        
+        }
+        else if (templateType == TemplateType.Building)
+        {
+            templateDropdown.InitTemplateDropdown();
+        }
+
+
+        templateManager.InitTemplateManager();
     }
 
     private void TogglePopupButton()
     {
         isMenuOpen = !isMenuOpen;
         creationPopupMenu.gameObject.SetActive(isMenuOpen);
+        
     }
 
     
-
-
     private void FabricateTemplate()
     {
-        templateManager.createTemplate(unitTypeDropdown.SelectedUnitType);
-
-
+        if (templateType == TemplateType.Unit) 
+        { 
+            templateManager.CreateTemplate(templateType, 10, 10, unitTypeDropdown.SelectedUnitType);
+            
+        }
 
 
     }

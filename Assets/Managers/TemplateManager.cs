@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public enum TemplateType
 {
     Unit,
@@ -9,22 +11,23 @@ public enum TemplateType
 
 public class Template
 {
-    public TemplateType TemplateType { get; set; }
+    public TemplateType TemplateType{ get; set; }
     public int Size { get; set; }
     public int NumberOfRooms { get; set; }
-    public string UnitType { get; set; }
+    public UnitType UnitType { get; set; }
 }
 
 public class TemplateManager : MonoBehaviour
 {
     List<Template> templates;
+    public GameData gameData;
 
     public void InitTemplateManager()
     {
         templates = new List<Template>();
     }
 
-    public void CreateTemplate(TemplateType templateType, int size, int numberOfRooms, string unitType)
+    public void CreateTemplate(TemplateType templateType, int size, int numberOfRooms, UnitType unitType)
     {
         Template newTemplate = new Template()
         {
@@ -34,7 +37,9 @@ public class TemplateManager : MonoBehaviour
             UnitType = unitType
         };
 
-        templates.Add(newTemplate);
+        // templates.Add(newTemplate);
+        gameData.AddTemplate(newTemplate);
+
     }
 
     public List<Template> GetTemplatesByType(TemplateType type)

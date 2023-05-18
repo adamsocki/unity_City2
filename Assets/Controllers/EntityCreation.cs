@@ -62,10 +62,14 @@ public class EntityCreation : MonoBehaviour
     
     private void FabricateTemplate()
     {
+
         if (templateType == TemplateType.Unit) 
-        { 
-            templateManager.CreateTemplate(templateType, 10, 10, unitTypeDropdown.SelectedUnitType);
-            
+        {
+            EntityHandle newTemplateHandle = templateManager.CreateTemplate(TemplateType.Unit, 10, 2, UnitType.Residential);
+
+            // Get the actual template using the handle
+            //Template newTemplate = (Template)EntityManager.Instance.GetEntity(newTemplateHandle);
+
         }
 
 

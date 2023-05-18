@@ -9,7 +9,7 @@ public class TemplateDropdown : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
     public TemplateManager templateManager;
-    private List<Template> _templates = new List<Template>();
+    private List<EntityHandle> _templateHandles = new List<EntityHandle>();
     public GameData gameData;
 
 
@@ -36,7 +36,7 @@ public class TemplateDropdown : MonoBehaviour
 
     private void OnEnable()
     {
-        if (gameData.Templates != null) 
+        if (gameData.TemplateHandles != null) 
         {
             UpdateTemplateDropdown();
         }
@@ -45,15 +45,14 @@ public class TemplateDropdown : MonoBehaviour
     public void UpdateTemplateDropdown()
     {
 
-        _templates = gameData.Templates;
+        _templateHandles = gameData.TemplateHandles;
         dropdown.options.Clear();
-        foreach (var template in _templates)
+        foreach (var templateHandle in _templateHandles)
         {
+            Template template = (Template)EntityManager.Instance.GetEntity(templateHandle);
             dropdown.options.Add(new TMP_Dropdown.OptionData(template.Size.ToString()));
         }
 
         dropdown.onValueChanged.AddListener(delegate { DropdownValueChanged(dropdown); });
     }
-
-
 }

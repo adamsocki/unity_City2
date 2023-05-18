@@ -9,25 +9,17 @@ public enum TemplateType
     Building
 }
 
-public class Template
-{
-    public TemplateType TemplateType{ get; set; }
-    public int Size { get; set; }
-    public int NumberOfRooms { get; set; }
-    public UnitType UnitType { get; set; }
-}
-
 public class TemplateManager : MonoBehaviour
 {
-    List<Template> templates;
+    //public List<EntityHandle> templateHandles;
     public GameData gameData;
 
     public void InitTemplateManager()
     {
-        templates = new List<Template>();
+        //templateHandles = new List<EntityHandle>();
     }
 
-    public void CreateTemplate(TemplateType templateType, int size, int numberOfRooms, UnitType unitType)
+    public EntityHandle CreateTemplate(TemplateType templateType, int size, int numberOfRooms, UnitType unitType)
     {
         Template newTemplate = new Template()
         {
@@ -38,60 +30,28 @@ public class TemplateManager : MonoBehaviour
         };
 
         // templates.Add(newTemplate);
-        gameData.AddTemplate(newTemplate);
+        newTemplate.handle = EntityManager.Instance.AddEntity(EntityType.Template, newTemplate);
+        gameData.AddTemplate(newTemplate.handle);
+        //templateHandles.Add(newTemplate.handle);
 
+        return newTemplate.handle;
     }
 
-    public List<Template> GetTemplatesByType(TemplateType type)
+    public Template GetTemplate(EntityHandle handle)
     {
-        // Return a list of templates filtered by the specified type
-        return templates.FindAll(t => t.TemplateType == type);
+        return (Template)EntityManager.Instance.GetEntity(handle);
     }
 
     public List<Template> GetAllTemplates()
     {
-        // Return the entire list of templates
+        List<Template> templates = new List<Template>();
+        foreach (EntityHandle handle in gameData.TemplateHandles)
+        {
+            templates.Add(GetTemplate(handle));
+        }
         return templates;
     }
 
-    public List<Template> GetTemplatesBySize(int size)
-    {
-        List<Template> filteredTemplates = new List<Template>();
-        foreach (Template template in templates)
-        {
-            if (template.Size == size)
-            {
-                filteredTemplates.Add(template);
-            }
-        }
-        return filteredTemplates;
-    }
-
-    public List<Template> GetTemplatesByRooms(int rooms)
-    {
-        List<Template> filteredTemplates = new List<Template>();
-        foreach (Template template in templates)
-        {
-            if (template.NumberOfRooms == rooms)
-            {
-                filteredTemplates.Add(template);
-            }
-        }
-        return filteredTemplates;
-    }
-
-    public List<Template> GetTemplatesByUnitType(string unitType)
-    {
-        List<Template> filteredTemplates = new List<Template>();
-        foreach (Template template in templates)
-        {
-            if (template.UnitType.Equals(unitType))
-            {
-                filteredTemplates.Add(template);
-            }
-        }
-        return filteredTemplates;
-    }
 
 
 }

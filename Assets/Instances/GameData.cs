@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-    public List<Template> Templates { get; private set; }
+    public List<EntityHandle> TemplateHandles { get; private set; }
 
     private void Start()
     {
-        Templates = new List<Template>();
+        TemplateHandles = new List<EntityHandle>();
     }
 
-    public void AddTemplate(Template template)
+    public void AddTemplate(EntityHandle template)
     {
-        Templates.Add(template);
+        TemplateHandles.Add(template);
     }
     // ... any other methods you want for manipulating Templates
 }

@@ -11,6 +11,14 @@ public enum EntityType
     EntityType_Count,
 }
 
+public enum UnitType
+{
+    Residential,
+    Commerical,
+    Industrial,
+    Public
+}
+
 public class Entity
 {
     public EntityHandle handle;

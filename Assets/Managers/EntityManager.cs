@@ -6,7 +6,7 @@ public enum EntityType
 {
     Building,
     Resident,
-    Unit,
+    
     Template,
 
     EntityType_Count,
@@ -36,6 +36,17 @@ public class Building : Entity
 public class Template : Entity
 {
     public TemplateType TemplateType { get; set; }
+    public int Size { get; set; }
+    public string Name { get; set; }
+    public int NumberOfRooms { get; set; }
+    public UnitType UnitType { get; set; }
+    // Other template properties...
+}
+
+
+public class FabricatedUnit : Entity
+{
+    //public TemplateType TemplateType { get; set; }
     public int Size { get; set; }
     public int NumberOfRooms { get; set; }
     public UnitType UnitType { get; set; }
@@ -141,6 +152,8 @@ public class EntityManager : MonoBehaviour
         nextEntityId++;
         return handle;
     }
+
+
 
     public Entity GetEntity(EntityHandle handle)
     {

@@ -20,10 +20,11 @@ public class TemplateManager : MonoBehaviour
         //templateHandles = new List<EntityHandle>();
     }
 
-    public EntityHandle CreateTemplate(TemplateType templateType, int size, int numberOfRooms, UnitType unitType)
+    public EntityHandle CreateTemplate(TemplateType templateType, int size, int numberOfRooms, UnitType unitType, string name)
     {
         Template newTemplate = new Template()
         {
+            Name = name,
             TemplateType = templateType,
             Size = size,
             NumberOfRooms = numberOfRooms,
@@ -37,6 +38,8 @@ public class TemplateManager : MonoBehaviour
 
         return newTemplate.handle;
     }
+
+
 
     public Template GetTemplate(EntityHandle handle)
     {
@@ -53,6 +56,24 @@ public class TemplateManager : MonoBehaviour
         return templates;
     }
 
+    public void UpdateTemplate(EntityHandle handle, TemplateType templateType, int size, int numberOfRooms, UnitType unitType, string name)
+    {
+        Template existingTemplate = GetTemplate(handle);
 
+        if (existingTemplate != null)
+        {
+            existingTemplate.Name = name;
+            existingTemplate.TemplateType = templateType;
+            existingTemplate.Size = size;
+            existingTemplate.NumberOfRooms = numberOfRooms;
+            existingTemplate.UnitType = unitType;
+
+            //entityManager.UpdateEntity(handle, existingTemplate);
+
+            //EntityHandle handle = // the handle of the entity you want to update.
+            //Template entityToUpdate = (Template)entityManager.GetEntity(handle);
+
+        }
+    }
 
 }

@@ -72,7 +72,7 @@ public class EntityTypeBuffer
 
 public class EntityManager : MonoBehaviour
 {
-    public static EntityManager Instance { get; private set; }
+   // public static EntityManager Instance { get; private set; }
 
     public int totalEntityManagerCapacity = 10;
     private int nextEntityId;

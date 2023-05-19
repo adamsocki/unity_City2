@@ -13,6 +13,7 @@ public class TemplateManager : MonoBehaviour
 {
     //public List<EntityHandle> templateHandles;
     public GameData gameData;
+    public EntityManager entityManager;
 
     public void InitTemplateManager()
     {
@@ -30,7 +31,7 @@ public class TemplateManager : MonoBehaviour
         };
 
         // templates.Add(newTemplate);
-        newTemplate.handle = EntityManager.Instance.AddEntity(EntityType.Template, newTemplate);
+        newTemplate.handle = entityManager.AddEntity(EntityType.Template, newTemplate);
         gameData.AddTemplate(newTemplate.handle);
         //templateHandles.Add(newTemplate.handle);
 
@@ -39,7 +40,7 @@ public class TemplateManager : MonoBehaviour
 
     public Template GetTemplate(EntityHandle handle)
     {
-        return (Template)EntityManager.Instance.GetEntity(handle);
+        return (Template)entityManager.GetEntity(handle);
     }
 
     public List<Template> GetAllTemplates()

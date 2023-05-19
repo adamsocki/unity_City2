@@ -7319,6 +7319,7 @@ MonoBehaviour:
   dropdown: {fileID: 1488839367}
   templateManager: {fileID: 2146768264}
   gameData: {fileID: 1714467063}
+  entityManager: {fileID: 851503113}
 --- !u!1 &1490484976
 GameObject:
   m_ObjectHideFlags: 0
@@ -10223,3 +10224,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 1714467063}
+  entityManager: {fileID: 851503113}

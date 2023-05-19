@@ -11,6 +11,7 @@ public class TemplateDropdown : MonoBehaviour
     public TemplateManager templateManager;
     private List<EntityHandle> _templateHandles = new List<EntityHandle>();
     public GameData gameData;
+    public EntityManager entityManager;
 
 
     public void InitTemplateDropdown()
@@ -49,7 +50,7 @@ public class TemplateDropdown : MonoBehaviour
         dropdown.options.Clear();
         foreach (var templateHandle in _templateHandles)
         {
-            Template template = (Template)EntityManager.Instance.GetEntity(templateHandle);
+            Template template = (Template)entityManager.GetEntity(templateHandle);
             dropdown.options.Add(new TMP_Dropdown.OptionData(template.Size.ToString()));
         }
 

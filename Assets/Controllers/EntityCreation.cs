@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EntityCreation : MonoBehaviour
@@ -24,6 +25,10 @@ public class EntityCreation : MonoBehaviour
     public Button fabricateTemplateButton;
     public Button saveTemplateButton;
 
+    public Sprite normalSaveIcon;
+    public Sprite hoverSaveIcon;
+
+
     public TemplateType templateType;
     public TemplateManager templateManager;
 
@@ -40,6 +45,18 @@ public class EntityCreation : MonoBehaviour
         if (templateType == TemplateType.Unit)
         {
             saveTemplateButton.onClick.AddListener(SaveTemplate);
+            EventTrigger trigger = saveTemplateButton.gameObject.AddComponent<EventTrigger>();
+
+            EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry();
+            pointerEnterEntry.eventID = EventTriggerType.PointerEnter;
+            pointerEnterEntry.callback.AddListener((data) => { OnPointerEnter((PointerEventData)data); });
+            trigger.triggers.Add(pointerEnterEntry);
+
+            EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
+            pointerExitEntry.eventID = EventTriggerType.PointerExit;
+            pointerExitEntry.callback.AddListener((data) => { OnPointerExit((PointerEventData)data); });
+            trigger.triggers.Add(pointerExitEntry);
+
             unitTypeDropdown.InitEnumTypeDropdown();
             allUnitNameTemplateDropdown.InitTemplateDropdown();
             allUnitNameTemplateDropdown.dropdown.onValueChanged.AddListener(delegate { UpdateAllFields(allUnitNameTemplateDropdown.dropdown); });
@@ -53,6 +70,17 @@ public class EntityCreation : MonoBehaviour
 
         templateManager.InitTemplateManager();
     }
+
+    private void OnPointerEnter(PointerEventData data)
+    {
+        saveTemplateButton.GetComponent<Image>().sprite = hoverSaveIcon;
+    }
+
+    private void OnPointerExit(PointerEventData data)
+    {
+        saveTemplateButton.GetComponent<Image>().sprite = normalSaveIcon;
+    }
+
 
     private void SaveTemplate()
     {

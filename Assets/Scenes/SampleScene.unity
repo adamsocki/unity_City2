@@ -1290,6 +1290,7 @@ GameObject:
   - component: {fileID: 182049001}
   - component: {fileID: 182049000}
   - component: {fileID: 182048999}
+  - component: {fileID: 182049002}
   m_Layer: 5
   m_Name: SaveUnitType
   m_TagString: Untagged
@@ -1399,6 +1400,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182048997}
   m_CullTransparentMesh: 1
+--- !u!114 &182049002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182048997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &182316035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,7 +1675,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2758,6 +2772,8 @@ MonoBehaviour:
   nameInputField: {fileID: 0}
   fabricateTemplateButton: {fileID: 1301033773}
   saveTemplateButton: {fileID: 0}
+  normalSaveIcon: {fileID: 0}
+  hoverSaveIcon: {fileID: 0}
   templateType: 1
   templateManager: {fileID: 2146768264}
 --- !u!1 &465401515
@@ -7378,7 +7394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -29}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354566304
@@ -7402,6 +7418,8 @@ MonoBehaviour:
   nameInputField: {fileID: 1019048002}
   fabricateTemplateButton: {fileID: 943812002}
   saveTemplateButton: {fileID: 182048999}
+  normalSaveIcon: {fileID: 21300000, guid: 91738c855ba655342bfa31c406c5de4b, type: 3}
+  hoverSaveIcon: {fileID: 21300000, guid: cd7255e391af511438232eb6bc364cea, type: 3}
   templateType: 0
   templateManager: {fileID: 2146768264}
 --- !u!1 &1391072061
@@ -10423,7 +10441,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10558,7 +10576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1894199828
 RectTransform:
   m_ObjectHideFlags: 0

@@ -28,7 +28,6 @@ public class TemplateDropdown : MonoBehaviour
         
         if (dropdown != null)
         {
-
             UpdateTemplateDropdown();
         }
        
@@ -78,7 +77,7 @@ public class TemplateDropdown : MonoBehaviour
 
     private void OnEnable()
     {
-        if (gameData.TemplateHandles != null) 
+        if (gameData.TemplateHandles != null && dropdown != null) 
         {
             UpdateTemplateDropdown();
         }
@@ -89,28 +88,33 @@ public class TemplateDropdown : MonoBehaviour
 
         _templateHandles = gameData.TemplateHandles;
         dropdown.options.Clear();
-        foreach (var templateHandle in _templateHandles)
+
+        if (_templateHandles != null)
         {
-            Template template = (Template)entityManager.GetEntity(templateHandle);
-            switch (template.TemplateType)
+            foreach (var templateHandle in _templateHandles)
             {
-                case TemplateType.Unit:
+                Template template = (Template)entityManager.GetEntity(templateHandle);
+                switch (template.TemplateType)
                 {
-                    EntityOptionData newOption = new EntityOptionData(template.Name.ToString(), templateHandle);
-                    dropdown.options.Add(newOption);
+                    case TemplateType.Unit:
+                        {
+                            EntityOptionData newOption = new EntityOptionData(template.Name.ToString(), templateHandle);
+                            dropdown.options.Add(newOption);
 
-                   // dropdown.options.Add(new TMP_Dropdown.OptionData(template.Name.ToString()));
+                            // dropdown.options.Add(new TMP_Dropdown.OptionData(template.Name.ToString()));
 
-                    break;
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
                 }
-                default:
-                {
-                    break;
-                }
+                // Template template = (Template)entityManager.GetEntity(templateHandle);
+                //dropdown.options.Add(new TMP_Dropdown.OptionData(template.Size.ToString()));
             }
-           // Template template = (Template)entityManager.GetEntity(templateHandle);
-            //dropdown.options.Add(new TMP_Dropdown.OptionData(template.Size.ToString()));
         }
+        
 
         dropdown.onValueChanged.AddListener(delegate { DropdownValueChanged(dropdown); });
     }

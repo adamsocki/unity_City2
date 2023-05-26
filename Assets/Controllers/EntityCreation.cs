@@ -74,6 +74,7 @@ public class EntityCreation : MonoBehaviour
         isMenuOpen = !isMenuOpen;
         if (isMenuOpen) 
         {
+            Debug.Log("ShouldN");
             uiGamePlayController.PopupIsOpening(this);
         }
         

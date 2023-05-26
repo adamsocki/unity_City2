@@ -27,19 +27,19 @@ public class UIGamePlayController : MonoBehaviour
     
     public void UpdateUIGamePLayController()
     {
-        //foreach(EntityCreation entity in entities)
-        //{
-        //    if (entity.GetIsMenuOpen())
-        //    {
-        //        foreach(EntityCreation restOfEntities in entities)
-        //        {
-        //            if (restOfEntities != entity)
-        //            {
-        //                restOfEntities.TogglePopupButton();
-        //            }
-        //        }
-        //    }
-        //}
+        foreach(EntityCreation entity in entities)
+        {
+            if (entity.GetIsMenuOpen())
+            {
+                foreach(EntityCreation restOfEntities in entities)
+                {
+                    if (restOfEntities != entity)
+                    {
+                        //restOfEntities.TogglePopupButton();
+                    }
+                }
+            }
+        }
     }
 
     public void PopupIsOpening(EntityCreation entityThatisOpening)

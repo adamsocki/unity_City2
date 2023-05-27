@@ -9,3 +9,9 @@ public class EntityOptionData : TMP_Dropdown.OptionData
         this.handle = handle;
     }
 }
+
+public class CreateNewDataTMP : TMP_Dropdown.OptionData
+{
+
+}
+

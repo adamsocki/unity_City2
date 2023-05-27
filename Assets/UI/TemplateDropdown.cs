@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Playables;
 
 
@@ -28,10 +29,13 @@ public class TemplateDropdown : MonoBehaviour
         
         if (dropdown != null)
         {
-            UpdateTemplateDropdown();
+            ReInitOption();
+
+
+            //UpdateTemplateDropdown();
         }
-       
-        switch(templateDropdownType)
+
+        switch (templateDropdownType)
         {
             case TemplateDropdownType.name:
             {
@@ -52,11 +56,16 @@ public class TemplateDropdown : MonoBehaviour
 
     public void DropdownValueChanged(TMP_Dropdown dropdown)
     {
-        EntityOptionData selectedOption = dropdown.options[dropdown.value] as EntityOptionData;
-        EntityHandle selectedEntityHandle = selectedOption.handle;
 
-        // Now you have the EntityHandle of the selected value in the dropdown
-        Debug.Log("Selected entity's ID: " + selectedEntityHandle.idLocationInsideInfo);
+        EntityOptionData selectedOption = dropdown.options[dropdown.value] as EntityOptionData;
+        if (selectedOption != null)
+        {
+            EntityHandle selectedEntityHandle = selectedOption.handle;
+            // Now you have the EntityHandle of the selected value in the dropdown
+            Debug.Log("Selected entity's ID: " + selectedEntityHandle.idLocationInsideInfo);
+
+
+        }
 
     }
 
@@ -67,7 +76,7 @@ public class TemplateDropdown : MonoBehaviour
             EntityOptionData selectedOption = dropdown.options[dropdown.value] as EntityOptionData;
             if (selectedOption != null)
             {
-                Debug.Log("GetEntitySelected");
+                //Debug.Log("GetEntitySelected");
                 return selectedOption.handle;
             }
         }
@@ -82,13 +91,29 @@ public class TemplateDropdown : MonoBehaviour
             UpdateTemplateDropdown();
         }
     }
+    
+    private void ReInitOption()
+    {
+        dropdown.options.Clear();
+        CreateNewDataTMP newDataButton = new CreateNewDataTMP();
+        newDataButton.text = "Create New Unit Template";
+        dropdown.options.Add(newDataButton);
+        //inputField.interactable = false;
+    }
+
+
+    public void ChangeSelectedIndex(int newIndex)
+    {
+        dropdown.value = newIndex;
+    }
+
 
     public void UpdateTemplateDropdown()
     {
 
         _templateHandles = gameData.TemplateHandles;
-        dropdown.options.Clear();
-
+        //dropdown.options.Clear();
+        ReInitOption();
         if (_templateHandles != null)
         {
             foreach (var templateHandle in _templateHandles)
@@ -100,7 +125,8 @@ public class TemplateDropdown : MonoBehaviour
                         {
                             EntityOptionData newOption = new EntityOptionData(template.Name.ToString(), templateHandle);
                             dropdown.options.Add(newOption);
-
+                            int newIndex = dropdown.options.Count - 1;
+                            ChangeSelectedIndex(newIndex);
                             // dropdown.options.Add(new TMP_Dropdown.OptionData(template.Name.ToString()));
 
                             break;
@@ -113,6 +139,10 @@ public class TemplateDropdown : MonoBehaviour
                 // Template template = (Template)entityManager.GetEntity(templateHandle);
                 //dropdown.options.Add(new TMP_Dropdown.OptionData(template.Size.ToString()));
             }
+        }
+        else
+        {
+            Debug.Log("isNull");
         }
         
 

@@ -39,8 +39,6 @@ public class TemplateManager : MonoBehaviour
         return newTemplate.handle;
     }
 
-
-
     public Template GetTemplate(EntityHandle handle)
     {
         return (Template)entityManager.GetEntity(handle);
@@ -75,4 +73,11 @@ public class TemplateManager : MonoBehaviour
 
         }
     }
+
+
+    public bool HasTemplateChanged(EntityHandle handle)
+    {
+        return false;
+    }
+
 }

@@ -31,13 +31,15 @@ public class UIGamePlayController : MonoBehaviour
         {
             if (entity.GetIsMenuOpen())
             {
-                foreach(EntityCreation restOfEntities in entities)
-                {
-                    if (restOfEntities != entity)
-                    {
-                        //restOfEntities.TogglePopupButton();
-                    }
-                }
+                entity.UpdateEntityCreation();
+
+                //foreach(EntityCreation restOfEntities in entities)
+                //{
+                //    if (restOfEntities != entity)
+                //    {
+                //        //restOfEntities.TogglePopupButton();
+                //    }
+                //}
             }
         }
     }

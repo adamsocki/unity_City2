@@ -8,6 +8,7 @@ public enum EntityType
     Resident,
     
     Template,
+    Unit,
 
     EntityType_Count,
 }
@@ -46,11 +47,22 @@ public class Template : Entity
 
 public class FabricatedUnit : Entity
 {
-    //public TemplateType TemplateType { get; set; }
+    public string Name { get; set; }
+    public TemplateType TemplateType { get; set; }
     public int Size { get; set; }
     public int NumberOfRooms { get; set; }
     public UnitType UnitType { get; set; }
-    // Other template properties...
+
+    // Constructor
+    public FabricatedUnit(Template template)
+    {
+        Name = template.Name;
+        TemplateType = template.TemplateType;
+        Size = template.Size;
+        NumberOfRooms = template.NumberOfRooms;
+        UnitType = template.UnitType;
+    }
+
 }
 
 
@@ -83,8 +95,6 @@ public class EntityTypeBuffer
 
 public class EntityManager : MonoBehaviour
 {
-   // public static EntityManager Instance { get; private set; }
-
     public int totalEntityManagerCapacity = 10;
     private int nextEntityId;
 

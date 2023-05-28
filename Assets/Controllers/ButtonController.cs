@@ -94,6 +94,16 @@ public class ButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void Update()
     {
+
+        if (isActive)
+        {
+            button.image.sprite = defaultSprite;
+        }
+        else
+        {
+            button.image.sprite = nullSprite;
+        }
+
         if (IsActive && isClicked)
         {
             pointerDownTimer += Time.deltaTime;
@@ -104,6 +114,7 @@ public class ButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExi
                 Reset();
             }
         }
+        
     }
 
     private void Reset()

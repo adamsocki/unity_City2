@@ -14,6 +14,7 @@ public class EntityCreation : MonoBehaviour
     public UIGamePlayController uiGamePlayController;
 
     public EnumTypeDropdown unitTypeDropdown;
+
     public TemplateDropdown allUnitNameTemplateDropdown;
      
     public TemplateDropdown templateDropdown;
@@ -50,10 +51,15 @@ public class EntityCreation : MonoBehaviour
         
         if (templateType == TemplateType.Unit)
         {
-            //saveTemplateButton.onClick.AddListener(SaveTemplate);
+            nameInputField.interactable = false;
+            nameInputField.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifference(); });
+            
             unitTypeDropdown.InitEnumTypeDropdown();
+            unitTypeDropdown.dropdown.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifference(); });
+
             allUnitNameTemplateDropdown.InitTemplateDropdown();
             allUnitNameTemplateDropdown.dropdown.onValueChanged.AddListener(delegate { UpdateAllFields(allUnitNameTemplateDropdown.dropdown); });
+
 
             saveButtonController = saveButton.GetComponent<ButtonController>();
             saveButtonController.button.onClick.AddListener(SaveTemplate);
@@ -61,7 +67,6 @@ public class EntityCreation : MonoBehaviour
             newButtonController = newTemplateButton.GetComponent<ButtonController>();
             newButtonController.button.onClick.AddListener(SaveCheckForNewTemplate);
 
-            nameInputField.interactable = false;
 
             popupWarningController.gameObject.SetActive(false);
 
@@ -77,7 +82,7 @@ public class EntityCreation : MonoBehaviour
 
     public void UpdateEntityCreation()
     {
-        DetectTemplateUnsavedDifferenceForIcon();
+       // DetectTemplateUnsavedDifferenceForIcon();
     }
 
 
@@ -88,9 +93,11 @@ public class EntityCreation : MonoBehaviour
         //Debug.Log("SaveTemplate");
         if (saveButton.GetComponent<ButtonController>().isActive)
         {
-            templateManager.UpdateTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle(), TemplateType.Unit, 10, 2, UnitType.Residential, nameInputField.text);
+            Debug.Log("save Hit");
+            templateManager.UpdateTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle(), TemplateType.Unit, 10, 2, unitTypeDropdown.SelectedUnitType, nameInputField.text);
             allUnitNameTemplateDropdown.UpdateTemplateDropdown();
             allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
+            DetectTemplateUnsavedDifference();
         }
         
     }
@@ -118,7 +125,6 @@ public class EntityCreation : MonoBehaviour
         isMenuOpen = !isMenuOpen;
         if (isMenuOpen) 
         {
-            //Debug.Log("ShouldN");
             uiGamePlayController.PopupIsOpening(this);
         }
         
@@ -136,10 +142,6 @@ public class EntityCreation : MonoBehaviour
         if (templateType == TemplateType.Unit)
         {
 
-
-
-
-
             // 3. create new blank template
             nameInputField.text = string.Empty;
             EntityHandle newTemplateHandle = templateManager.CreateTemplate(TemplateType.Unit, 10, 2, UnitType.Residential, nameInputField.text);
@@ -152,11 +154,8 @@ public class EntityCreation : MonoBehaviour
             // Get the actual template using the handle
             //Template newTemplate = (Template)EntityManager.Instance.GetEntity(newTemplateHandle);
             nameInputField.interactable = true;
-
-
-            
+   
         }
-
     }
 
     public void ClearTemplate()
@@ -174,7 +173,7 @@ public class EntityCreation : MonoBehaviour
             popupWarningController.referenceToEntityCreation(this);
             popupWarningController.InitPopupWarning(WarningTypes.blankTemplateName);
         }
-        else if (DetectTemplateUnsavedDifferenceForNew())
+        else if (false)
         {   // 2. check if any changes have not been saved
 
         }
@@ -190,7 +189,6 @@ public class EntityCreation : MonoBehaviour
         if (templateType == TemplateType.Unit)
         {
 
-
             EntityHandle newFabricatedUnitHandle = unitManager.CreateUnit(template);
 
             // Get the actual unit using the handle
@@ -202,35 +200,42 @@ public class EntityCreation : MonoBehaviour
     }
 
 
-
-
-
-    // Detect change state to activate Save Button
-    private void DetectTemplateUnsavedDifferenceForIcon()
+    private void DetectTemplateUnsavedDifference()
     {
-        bool isDifferent = true;
+        bool isDifferent = false;
+       
+        Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
 
-        if (true)
+        // continue
+        if (nameInputField.text != currentSavedTemplate.Name)
         {
-            isDifferent = false;
+            Debug.Log("nameInputField.text == currentSavedTemplate.Name");
+            isDifferent = true;
         }
-
-
-
+        else if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType)
+        {
+            Debug.Log("unitTypeDropdown");
+            isDifferent = true;
+        }
+        //else if (nameInputField.text == string.Empty && allUnitNameTemplateDropdown.dropdown.value != 0)
+        //{
+        //    //isDifferent = false;
+        //}
 
 
         if (isDifferent)
         {
+            Debug.Log("isDifferent");
             saveButtonController.IsActive = true;
         }
         else
         {
+            Debug.Log("!isDifferent");
+
             saveButtonController.IsActive = false;
         }
-
-       
-
     }
+
 
     private bool DetectTemplateUnsavedDifferenceForNew()
     {

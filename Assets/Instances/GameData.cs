@@ -17,11 +17,22 @@ public class GameData : MonoBehaviour
         TemplateHandles.Add(template);
     }
 
+    public void RemoveTemplate(EntityHandle template)
+    {
+        TemplateHandles.Remove(template);
+    }
+
     public void AddUnit(EntityHandle unit)
     {
         FabricatedUnitHandles.Add(unit);
     }
 
+    public void RemoveUnit(EntityHandle unit)
+    {
+        FabricatedUnitHandles.Remove(unit);
+    }
 
-    // ... any other methods you want for manipulating Templates
+    // ... any other methods you want for manipulating Templates and Units.
+
+    
 }

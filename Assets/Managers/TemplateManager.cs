@@ -60,6 +60,7 @@ public class TemplateManager : MonoBehaviour
 
         if (existingTemplate != null)
         {
+            
             existingTemplate.Name = name;
             existingTemplate.TemplateType = templateType;
             existingTemplate.Size = size;
@@ -79,5 +80,15 @@ public class TemplateManager : MonoBehaviour
     {
         return false;
     }
+
+
+    public void DeleteTemplate(EntityHandle handle)
+    {
+        Template template = GetTemplate(handle);
+        entityManager.RemoveEntity(handle);
+        //templateHandles.Remove(handle);
+        gameData.RemoveTemplate(handle);
+    }
+
 
 }

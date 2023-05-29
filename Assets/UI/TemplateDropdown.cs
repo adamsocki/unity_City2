@@ -112,6 +112,7 @@ public class TemplateDropdown : MonoBehaviour
     {
 
         _templateHandles = gameData.TemplateHandles;
+        Debug.Log(_templateHandles.Count);
         //dropdown.options.Clear();
         ReInitOption();
         if (_templateHandles != null)

@@ -28,6 +28,7 @@ public class EntityCreation : MonoBehaviour
     public GameObject newTemplateButton;
 
     public Button fabricateUnitButton;
+    public Button deleteUnitButton;
 
 
     public Sprite normalSaveIcon;
@@ -42,6 +43,7 @@ public class EntityCreation : MonoBehaviour
 
     private ButtonController saveButtonController;
     private ButtonController newButtonController;
+    private ButtonController deleteButtonController;
 
     public PopupWarningController popupWarningController;
 
@@ -67,6 +69,9 @@ public class EntityCreation : MonoBehaviour
 
             saveButtonController = saveButton.GetComponent<ButtonController>();
             saveButtonController.button.onClick.AddListener(SaveTemplate);
+
+            //deleteUnitButton = saveButton.GetComponent<ButtonController>();
+            deleteUnitButton.onClick.AddListener(PopupWarningForDelete);
 
             newButtonController = newTemplateButton.GetComponent<ButtonController>();
             newButtonController.button.onClick.AddListener(SaveCheckForNewTemplate);
@@ -261,54 +266,58 @@ public class EntityCreation : MonoBehaviour
 
     private void DetectTemplateUnsavedDifference()
     {
-        bool isDifferent = false;
-
-        Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
-        //Debug.Log(allUnitNameTemplateDropdown.dropdown.value);
-        //if(allUnitNameTemplateDropdown.dropdown.value != 0)
-        //{
-        //    
-        //}
-        //else
-        //{
-        //    //popupWarningController.gameObject.SetActive(true);
-        //    //popupWarningController.referenceToEntityCreation(this);
-        //    //popupWarningController.InitPopupWarning(WarningTypes.save);
-        //   // return;
-        //}
-            
-
-        // continue
-        if (nameInputField.text != currentSavedTemplate.Name)
+        if (allUnitNameTemplateDropdown.GetSelectedEntityHandle() != null)
         {
-            Debug.Log("nameInputField.text == currentSavedTemplate.Name");
-            isDifferent = true;
-        }
+            bool isDifferent = false;
 
-        if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType)
-        {
-            Debug.Log("unitTypeDropdown");
-            isDifferent = true;
-        }
-        
-        //if (nameInputField.text == string.Empty && allUnitNameTemplateDropdown.dropdown.value != 0)
-        //{
-        //    //popupWarningController.gameObject.SetActive(true);
-        //    //popupWarningController.referenceToEntityCreation(this);
-        //    //popupWarningController.InitPopupWarning(WarningTypes.blankTemplateName);
-        //    //isDifferent = true;
-        //}
+            Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+            //Debug.Log(allUnitNameTemplateDropdown.dropdown.value);
+            //if(allUnitNameTemplateDropdown.dropdown.value != 0)
+            //{
+            //    
+            //}
+            //else
+            //{
+            //    //popupWarningController.gameObject.SetActive(true);
+            //    //popupWarningController.referenceToEntityCreation(this);
+            //    //popupWarningController.InitPopupWarning(WarningTypes.save);
+            //   // return;
+            //}
 
 
-        if (isDifferent)
-        {
-            //Debug.Log("isDifferent");
-            saveButtonController.IsActive = true;
-        }
-        else
-        {
-            //Debug.Log("!isDifferent");
-            saveButtonController.IsActive = false;
+            // continue
+            if (nameInputField.text != currentSavedTemplate.Name)
+            {
+                Debug.Log("nameInputField.text == currentSavedTemplate.Name");
+                isDifferent = true;
+            }
+
+            if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType)
+            {
+                Debug.Log("unitTypeDropdown");
+                isDifferent = true;
+            }
+
+            //if (nameInputField.text == string.Empty && allUnitNameTemplateDropdown.dropdown.value != 0)
+            //{
+            //    //popupWarningController.gameObject.SetActive(true);
+            //    //popupWarningController.referenceToEntityCreation(this);
+            //    //popupWarningController.InitPopupWarning(WarningTypes.blankTemplateName);
+            //    //isDifferent = true;
+            //}
+
+
+            if (isDifferent)
+            {
+                //Debug.Log("isDifferent");
+                saveButtonController.IsActive = true;
+            }
+            else
+            {
+                //Debug.Log("!isDifferent");
+                saveButtonController.IsActive = false;
+            }
+
         }
 
 
@@ -323,7 +332,25 @@ public class EntityCreation : MonoBehaviour
 
     }
 
+    private void PopupWarningForDelete()
+    {
+        popupWarningController.gameObject.SetActive(true);
+        popupWarningController.referenceToEntityCreation(this);
+        popupWarningController.InitPopupWarning(WarningTypes.DeleteTemplate);
+    }
 
-
+    public void DeleteCurrentTemplate()
+    {
+        if (allUnitNameTemplateDropdown.GetSelectedEntityHandle() != null)
+        {
+            Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+            templateManager.DeleteTemplate(currentSavedTemplate.handle);
+            allUnitNameTemplateDropdown.UpdateTemplateDropdown();
+            allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
+            nameInputField.text = string.Empty;
+            nameInputField.interactable = false;
+            saveButtonController.IsActive = false;
+        }
+    }
 
 }

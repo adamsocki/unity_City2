@@ -1682,7 +1682,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2775,12 +2775,13 @@ MonoBehaviour:
   uiGamePlayController: {fileID: 37488881}
   unitTypeDropdown: {fileID: 0}
   allUnitNameTemplateDropdown: {fileID: 0}
-  templateDropdown: {fileID: 1488839370}
+  templateDropdown: {fileID: 0}
+  fabricatedUnitDropdown: {fileID: 1488839370}
   nameInputField: {fileID: 0}
   saveButton: {fileID: 0}
   newTemplateButton: {fileID: 0}
-  fabricateUnitButton: {fileID: 0}
   deleteUnitButton: {fileID: 0}
+  fabricateUnitButton: {fileID: 0}
   normalSaveIcon: {fileID: 0}
   hoverSaveIcon: {fileID: 0}
   templateType: 1
@@ -3198,7 +3199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &530488460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8192,11 +8193,12 @@ MonoBehaviour:
   unitTypeDropdown: {fileID: 1834856453}
   allUnitNameTemplateDropdown: {fileID: 1391072066}
   templateDropdown: {fileID: 0}
+  fabricatedUnitDropdown: {fileID: 0}
   nameInputField: {fileID: 1019048002}
   saveButton: {fileID: 182048997}
   newTemplateButton: {fileID: 943812000}
-  fabricateUnitButton: {fileID: 316841422}
   deleteUnitButton: {fileID: 2038544147}
+  fabricateUnitButton: {fileID: 316841422}
   normalSaveIcon: {fileID: 21300000, guid: 91738c855ba655342bfa31c406c5de4b, type: 3}
   hoverSaveIcon: {fileID: 21300000, guid: cd7255e391af511438232eb6bc364cea, type: 3}
   templateType: 0
@@ -8993,7 +8995,7 @@ GameObject:
   - component: {fileID: 1488839367}
   - component: {fileID: 1488839370}
   m_Layer: 5
-  m_Name: UnitTemplateDropdown
+  m_Name: FabricatedUnitsDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9129,14 +9131,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1488839365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d472ff01ca55148af9548055f8eb34, type: 3}
+  m_Script: {fileID: 11500000, guid: 22dd4cb4438ed3245bdfc047667046cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropdown: {fileID: 1488839367}
-  templateManager: {fileID: 2146768264}
+  unitManager: {fileID: 1983597778}
   gameData: {fileID: 1714467063}
   entityManager: {fileID: 851503113}
-  templateDropdownType: 0
 --- !u!1 &1490484976
 GameObject:
   m_ObjectHideFlags: 0
@@ -10967,7 +10968,7 @@ GameObject:
   - component: {fileID: 1834856450}
   - component: {fileID: 1834856453}
   m_Layer: 5
-  m_Name: UnitTypeDropdown
+  m_Name: UnitEnumTypesDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11299,7 +11300,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11434,7 +11435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1894199828
 RectTransform:
   m_ObjectHideFlags: 0

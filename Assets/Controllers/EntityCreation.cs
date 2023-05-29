@@ -19,6 +19,7 @@ public class EntityCreation : MonoBehaviour
     public TemplateDropdown allUnitNameTemplateDropdown;
      
     public TemplateDropdown templateDropdown;
+    public FabricatedUnitDropdown fabricatedUnitDropdown;
 
     public TMP_InputField nameInputField;
 
@@ -27,9 +28,9 @@ public class EntityCreation : MonoBehaviour
     public GameObject saveButton;
     public GameObject newTemplateButton;
 
-    public Button fabricateUnitButton;
     public Button deleteUnitButton;
 
+    public Button fabricateUnitButton;
 
     public Sprite normalSaveIcon;
     public Sprite hoverSaveIcon;
@@ -76,16 +77,18 @@ public class EntityCreation : MonoBehaviour
             newButtonController = newTemplateButton.GetComponent<ButtonController>();
             newButtonController.button.onClick.AddListener(SaveCheckForNewTemplate);
 
+            fabricateUnitButton.onClick.AddListener(FabricateUnitCheck);
 
             popupWarningController.gameObject.SetActive(false);
 
         }
         else if (templateType == TemplateType.Building) 
         {
-            templateDropdown.InitTemplateDropdown();
+            fabricatedUnitDropdown.InitFabricatedUnitDropdown();
+            
         }
 
-        templateManager.InitTemplateManager();
+        //templateManager.InitTemplateManager();
     }
 
 
@@ -217,22 +220,6 @@ public class EntityCreation : MonoBehaviour
         }
     }
 
-    private void FabricateUnit(Template template)
-    {
-       
-        if (templateType == TemplateType.Unit)
-        {
-
-            EntityHandle newFabricatedUnitHandle = unitManager.CreateUnit(template);
-
-            // Get the actual unit using the handle
-            //unit newFabricatedUnit = (FabricatedUnit)EntityManager.Instance.GetEntity(newFabricatedUnitHandle);
-
-        }
-
-
-    }
-
     private void DetectTemplateUnsavedDifferenceUnitChange(TMP_Dropdown dropdown)
     {
         bool isDifferent = false;
@@ -343,13 +330,44 @@ public class EntityCreation : MonoBehaviour
     {
         if (allUnitNameTemplateDropdown.GetSelectedEntityHandle() != null)
         {
-            Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
-            templateManager.DeleteTemplate(currentSavedTemplate.handle);
+            Template currentSelectedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+            templateManager.DeleteTemplate(currentSelectedTemplate.handle);
             allUnitNameTemplateDropdown.UpdateTemplateDropdown();
             allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
+            //nameInputField.text = string.Empty;
+            //nameInputField.interactable = false;
+            //saveButtonController.IsActive = false;
+        }
+
+        if (allUnitNameTemplateDropdown.GetSelectedEntityHandle() != null)
+        {
+            Template currentSelectedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+            nameInputField.text = currentSelectedTemplate.Name;
+        }
+        else
+        {
             nameInputField.text = string.Empty;
             nameInputField.interactable = false;
             saveButtonController.IsActive = false;
+        }
+
+    }
+
+    private void FabricateUnitCheck()
+    {
+        if (templateType == TemplateType.Unit)
+        {
+            if (allUnitNameTemplateDropdown.GetSelectedEntityHandle() != null)
+            {
+                Template currentSelectedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+
+                EntityHandle newFabricatedUnitHandle = unitManager.CreateUnit(currentSelectedTemplate);
+            }
+
+
+            // Get the actual unit using the handle
+            //unit newFabricatedUnit = (FabricatedUnit)EntityManager.Instance.GetEntity(newFabricatedUnitHandle);
+
         }
     }
 

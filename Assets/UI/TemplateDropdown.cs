@@ -95,9 +95,9 @@ public class TemplateDropdown : MonoBehaviour
     private void ReInitOption()
     {
         dropdown.options.Clear();
-        CreateNewDataTMP newDataButton = new CreateNewDataTMP();
-        newDataButton.text = "Create New Unit Template";
-        dropdown.options.Add(newDataButton);
+        //CreateNewDataTMP newDataButton = new CreateNewDataTMP();
+        //newDataButton.text = "Create New Unit Template";
+       // dropdown.options.Add(newDataButton);
         //inputField.interactable = false;
     }
 
@@ -146,6 +146,6 @@ public class TemplateDropdown : MonoBehaviour
         }
         
 
-        dropdown.onValueChanged.AddListener(delegate { DropdownValueChanged(dropdown); });
+        //dropdown.onValueChanged.AddListener(delegate { DropdownValueChanged(dropdown); });
     }
 }

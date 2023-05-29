@@ -40,18 +40,20 @@ public class PopupWarningController : MonoBehaviour
         {
             case WarningTypes.save:
             {
-                warningText.text = "Changes have been made which have not been saved.\nDo you want to proceed?";
-                return;
+                    warningText.text = "Changes have been made which have not been saved.\nDo you want to proceed?";
+                    button1Text.text = "Save Changes";
+                    button2Text.text = "Continue Without\nSaving";
+                    return;
             }
             case WarningTypes.blankTemplateName:
             {
-                warningText.text = "You have not given the Tempalte a Name.\nContinuing without giving template a name will delete template.\nDo you want to proceed?";
-                    button2Text.text = "Continue Without\nSaving.";
-                return;
+                    warningText.text = "You have not given the Tempalte a Name.\nContinuing without giving template a name will delete template.\nDo you want to proceed?";
+                    button2Text.text = "Continue Without\nSaving";
+                    return;
             }
             default:
             {
-                return;
+                    return;
             }
 
         }

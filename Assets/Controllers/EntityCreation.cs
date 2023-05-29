@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,6 +38,7 @@ public class EntityCreation : MonoBehaviour
     public TemplateManager templateManager;
     public UnitManager unitManager;
 
+    private int currentIndexAllUnit;
 
     private ButtonController saveButtonController;
     private ButtonController newButtonController;
@@ -58,7 +60,9 @@ public class EntityCreation : MonoBehaviour
             unitTypeDropdown.dropdown.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifference(); });
 
             allUnitNameTemplateDropdown.InitTemplateDropdown();
-            allUnitNameTemplateDropdown.dropdown.onValueChanged.AddListener(delegate { UpdateAllFields(allUnitNameTemplateDropdown.dropdown); });
+            allUnitNameTemplateDropdown.dropdown.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifferenceUnitChange(allUnitNameTemplateDropdown.dropdown); });
+
+            //allUnitNameTemplateDropdown.dropdown.onDropdownClick.AddListener(UpdateEntityCreation);
 
 
             saveButtonController = saveButton.GetComponent<ButtonController>();
@@ -91,32 +95,42 @@ public class EntityCreation : MonoBehaviour
     private void SaveTemplate()
     {
         //Debug.Log("SaveTemplate");
-        if (saveButton.GetComponent<ButtonController>().isActive)
+
+        if (templateType == TemplateType.Unit)
         {
-            Debug.Log("save Hit");
-            templateManager.UpdateTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle(), TemplateType.Unit, 10, 2, unitTypeDropdown.SelectedUnitType, nameInputField.text);
-            allUnitNameTemplateDropdown.UpdateTemplateDropdown();
-            allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
-            DetectTemplateUnsavedDifference();
+            if (saveButton.GetComponent<ButtonController>().isActive)
+            {
+                Debug.Log("save Hit");
+                templateManager.UpdateTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle(), templateType, 10, 2, unitTypeDropdown.SelectedUnitType, nameInputField.text);
+                allUnitNameTemplateDropdown.UpdateTemplateDropdown();
+                allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
+                DetectTemplateUnsavedDifference();
+            }
         }
-        
     }
 
     private void UpdateAllFields(TMP_Dropdown dropdown)
     {
-        if (dropdown.value != 0)
-        {
-            string selectedOptionText = dropdown.options[dropdown.value].text;
-        
-            nameInputField.text = selectedOptionText;
-            nameInputField.interactable = true;
 
-        }
-        else
-        {
-            nameInputField.text = string.Empty;
-            nameInputField.interactable = false;
-        }
+        string selectedOptionText = dropdown.options[dropdown.value].text;
+        currentIndexAllUnit = dropdown.value;
+
+        nameInputField.text = selectedOptionText;
+        nameInputField.interactable = true;
+
+        //if (dropdown.value != 0)
+        //{
+        //    string selectedOptionText = dropdown.options[dropdown.value].text;
+        
+        //    nameInputField.text = selectedOptionText;
+        //    nameInputField.interactable = true;
+
+        //}
+        //else
+        //{
+        //    nameInputField.text = string.Empty;
+        //    nameInputField.interactable = false;
+        //}
     }
 
 
@@ -167,15 +181,30 @@ public class EntityCreation : MonoBehaviour
     private void SaveCheckForNewTemplate()
     {
 
-        if (nameInputField.text == string.Empty && allUnitNameTemplateDropdown.dropdown.value != 0)
+        if (allUnitNameTemplateDropdown.GetSelectedEntityHandle() == null)
+        {
+            NewTemplate();
+            return;
+        }
+        Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+        
+
+        
+        if (nameInputField.text == string.Empty && nameInputField.interactable)
         {   // 1. Check if the name is empty
+            Debug.Log("Check if the name is empty");
             popupWarningController.gameObject.SetActive(true);
             popupWarningController.referenceToEntityCreation(this);
             popupWarningController.InitPopupWarning(WarningTypes.blankTemplateName);
         }
-        else if (false)
+        else if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType
+              || nameInputField.text != currentSavedTemplate.Name)
         {   // 2. check if any changes have not been saved
+            Debug.Log("check if any changes have not been saved");
 
+            popupWarningController.gameObject.SetActive(true);
+            popupWarningController.referenceToEntityCreation(this);
+            popupWarningController.InitPopupWarning(WarningTypes.save);
         }
         else
         {
@@ -199,12 +228,55 @@ public class EntityCreation : MonoBehaviour
 
     }
 
+    private void DetectTemplateUnsavedDifferenceUnitChange(TMP_Dropdown dropdown)
+    {
+        bool isDifferent = false;
+
+        Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+
+        if (nameInputField.text != currentSavedTemplate.Name)
+        {
+            Debug.Log("nameInputField.text == currentSavedTemplate.Name");
+            isDifferent = true;
+        }
+
+        if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType)
+        {
+            Debug.Log("unitTypeDropdown");
+            isDifferent = true;
+        }
+
+        if (isDifferent)
+        {
+            //Debug.Log("isDifferent");
+            saveButtonController.IsActive = true;
+        }
+        else
+        {
+            //Debug.Log("!isDifferent");
+            saveButtonController.IsActive = false;
+        }
+    }
+
 
     private void DetectTemplateUnsavedDifference()
     {
         bool isDifferent = false;
-       
+
         Template currentSavedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
+        //Debug.Log(allUnitNameTemplateDropdown.dropdown.value);
+        //if(allUnitNameTemplateDropdown.dropdown.value != 0)
+        //{
+        //    
+        //}
+        //else
+        //{
+        //    //popupWarningController.gameObject.SetActive(true);
+        //    //popupWarningController.referenceToEntityCreation(this);
+        //    //popupWarningController.InitPopupWarning(WarningTypes.save);
+        //   // return;
+        //}
+            
 
         // continue
         if (nameInputField.text != currentSavedTemplate.Name)
@@ -212,28 +284,36 @@ public class EntityCreation : MonoBehaviour
             Debug.Log("nameInputField.text == currentSavedTemplate.Name");
             isDifferent = true;
         }
-        else if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType)
+
+        if (unitTypeDropdown.SelectedUnitType != currentSavedTemplate.UnitType)
         {
             Debug.Log("unitTypeDropdown");
             isDifferent = true;
         }
-        //else if (nameInputField.text == string.Empty && allUnitNameTemplateDropdown.dropdown.value != 0)
+        
+        //if (nameInputField.text == string.Empty && allUnitNameTemplateDropdown.dropdown.value != 0)
         //{
-        //    //isDifferent = false;
+        //    //popupWarningController.gameObject.SetActive(true);
+        //    //popupWarningController.referenceToEntityCreation(this);
+        //    //popupWarningController.InitPopupWarning(WarningTypes.blankTemplateName);
+        //    //isDifferent = true;
         //}
 
 
         if (isDifferent)
         {
-            Debug.Log("isDifferent");
+            //Debug.Log("isDifferent");
             saveButtonController.IsActive = true;
         }
         else
         {
-            Debug.Log("!isDifferent");
-
+            //Debug.Log("!isDifferent");
             saveButtonController.IsActive = false;
         }
+
+
+
+
     }
 
 

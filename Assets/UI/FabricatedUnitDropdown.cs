@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class FabricatedUnitDropdown : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class FabricatedUnitDropdown : MonoBehaviour
     private List<EntityHandle> _fabricatedUnitHandles = new List<EntityHandle>();
     public GameData gameData;
     public EntityManager entityManager;
+    public Slider fabUnitSlider;
 
     public void InitFabricatedUnitDropdown()
     {
@@ -40,6 +42,8 @@ public class FabricatedUnitDropdown : MonoBehaviour
 
         if (_fabricatedUnitHandles != null)
         {
+            fabUnitSlider.gameObject.SetActive(true);
+            
             foreach (var fabricatedUnitHandle in _fabricatedUnitHandles)
             {
                 FabricatedUnit fabricatedUnit = (FabricatedUnit)entityManager.GetEntity(fabricatedUnitHandle);
@@ -48,7 +52,6 @@ public class FabricatedUnitDropdown : MonoBehaviour
                 dropdown.options.Add(newOption);
                 int newIndex = dropdown.options.Count - 1;
                 dropdown.value = newIndex;
-                // dropdown.options.Add(new TMP_Dropdown.OptionData(template.Name.ToString()));
 
                 break;
 
@@ -72,6 +75,11 @@ public class FabricatedUnitDropdown : MonoBehaviour
                 // Template template = (Template)entityManager.GetEntity(templateHandle);
                 //dropdown.options.Add(new TMP_Dropdown.OptionData(template.Size.ToString()));
             }
+        }
+        if (_fabricatedUnitHandles.Count == 0)
+        {
+            fabUnitSlider.gameObject.SetActive(false);
+
         }
 
 

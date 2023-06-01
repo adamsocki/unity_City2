@@ -34,11 +34,13 @@ public class ResidentialUnitGenerator : MonoBehaviour
         }
 
         float wallWidth = wallPrefab.GetComponent<Renderer>().bounds.size.x;
+        float wallHeight = wallPrefab.GetComponent<Renderer>().bounds.size.y;
+
         for (int i = 0; i < _size; i++)
         {
-            // take into account the width of the wall
+            // take into account the width of the wall 
 
-            GameObject wall = Instantiate(wallPrefab, new Vector3(i, 0, 0), Quaternion.identity);
+            GameObject wall = Instantiate(wallPrefab, new Vector3(i, 10 + wallHeight / 2, 0), Quaternion.identity);
             //GameObject wall2 = Instantiate(wallPrefab, new Vector3(i * wallWidth + wallWidth / 2, 0, _size - wallWidth ), Quaternion.identity);
             //GameObject wall3 = Instantiate(wallPrefab, new Vector3(0 , 0, i * wallWidth + wallWidth / 2), Quaternion.Euler(0, 90, 0));
             //GameObject wall4 = Instantiate(wallPrefab, new Vector3(_size - wallWidth + wallWidth / 2, 0, i * wallWidth + wallWidth / 2), Quaternion.Euler(0, 90, 0));
@@ -48,10 +50,11 @@ public class ResidentialUnitGenerator : MonoBehaviour
         for (int x = 0; x < _size; x++)
         {
 
-            GameObject floor = Instantiate(floorPrefab, new Vector3(x, 0, 0 + floorWidth / 2), Quaternion.identity);
+            GameObject floor = Instantiate(floorPrefab, new Vector3(x, 10, 0 + floorWidth / 2), Quaternion.identity);
 
             for (int z = 0; z < _size; z++)
             {
+
             }
         }
 

@@ -5406,7 +5406,8 @@ MonoBehaviour:
   floorPrefab: {fileID: 4824724403092091619, guid: a540b1707e6e7094ab3e04dfcc2f9a24, type: 3}
   doorPrefab: {fileID: 4635214199253790868, guid: 7a93e80cc60b50443a9dfe5df132b115, type: 3}
   _size: 5
-  _wallWidth: 1
+  _size_y: 12
+  _wallWidth: 0
 --- !u!1 &734015237
 GameObject:
   m_ObjectHideFlags: 0

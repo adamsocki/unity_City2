@@ -42,6 +42,7 @@ public class ResidentialUnitGenerator : MonoBehaviour
     }
 
     private List<Room> _rooms = new List<Room>();
+    private List<GameObject> renderedRooms = new List<GameObject>();
 
     public GameObject wallPrefab;
     public GameObject floorPrefab;
@@ -53,7 +54,10 @@ public class ResidentialUnitGenerator : MonoBehaviour
     public float _wallWidth;
 
   
+    public void DeleteRender()
+    {
 
+    }
 
     private void Start()
     {
@@ -78,8 +82,22 @@ public class ResidentialUnitGenerator : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
 
-        
+            foreach (GameObject renderedObject in renderedRooms)
+            {
+                Destroy(renderedObject);
+            }
+           
+        }
+
+    }
+
+
+    public void RenderRoom(int room)
+    {
+
     }
 
     public void RenderRoom(Room room)
@@ -97,12 +115,16 @@ public class ResidentialUnitGenerator : MonoBehaviour
         {
             GameObject wall_x1 = Instantiate(wallPrefab, new Vector3(room.Position.x + i, room.Position.y + wallHeight / 2, room.Position.z + wallThickness / 2), Quaternion.identity, parent.transform);
             GameObject wall_x2 = Instantiate(wallPrefab, new Vector3(room.Position.x + i, room.Position.y + wallHeight / 2, room.Position.z + room.Size.z - wallThickness / 2), Quaternion.identity, parent.transform);
+            renderedRooms.Add(wall_x1);
+            renderedRooms.Add(wall_x2);
         }
 
         for (int i = 0; i < room.UnitsToRender.z; i++)
         {
             GameObject wall_z1 = Instantiate(wallPrefab, new Vector3(room.Position.x - wallWidth / 2 - wallThickness / 2, room.Position.y + wallHeight / 2, room.Position.z + i + wallWidth / 2), Quaternion.Euler(0, 90, 0), parent.transform);
             GameObject wall_z2 = Instantiate(wallPrefab, new Vector3(room.Position.x + room.Size.x - wallWidth / 2 - wallThickness / 2, room.Position.y + wallHeight / 2, room.Position.z + i + wallWidth / 2), Quaternion.Euler(0, 90, 0), parent.transform);
+            renderedRooms.Add(wall_z1);
+            renderedRooms.Add(wall_z2);
         }
 
         float floorWidth = floorPrefab.GetComponent<Renderer>().bounds.size.z;
@@ -111,6 +133,7 @@ public class ResidentialUnitGenerator : MonoBehaviour
             for (int z = 0; z < room.Size.z; z++)
             {
                 GameObject floor = Instantiate(floorPrefab, new Vector3(room.Position.x + x, room.Position.y, room.Position.z + z + floorWidth / 2), Quaternion.identity);
+                renderedRooms.Add(floor);
             }
         }
 

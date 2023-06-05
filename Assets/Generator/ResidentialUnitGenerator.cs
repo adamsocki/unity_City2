@@ -56,17 +56,21 @@ public class ResidentialUnitGenerator : MonoBehaviour
   
     public void DeleteRender()
     {
-
+        foreach (GameObject renderedObject in renderedRooms)
+        {
+            Destroy(renderedObject);
+        }
+        _rooms.Clear();
     }
 
-    private void Start()
+    public void StartUnitGenerator(int roomCount)
     {
         float wallHeight = wallPrefab.GetComponent<Renderer>().bounds.size.y;
         Room initialRoom = new Room(parent.transform.position.x, parent.transform.position.y + 2, parent.transform.position.z, 20, wallHeight, 20, new Vector3(1,1,1));
         _rooms.Add(initialRoom);
        // Room nextRoom = new Room(0, 5 + wallHeight, 0, 10, wallHeight, 10);
        // _rooms.Add(nextRoom);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < roomCount; i++)
         {
             bool final = false;
             Room roomToSplit = _rooms[Random.Range(0, _rooms.Count)];
@@ -77,19 +81,6 @@ public class ResidentialUnitGenerator : MonoBehaviour
         foreach (Room room in _rooms)
         {
             RenderRoom(room);
-        }
-
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-
-            foreach (GameObject renderedObject in renderedRooms)
-            {
-                Destroy(renderedObject);
-            }
-           
         }
 
     }

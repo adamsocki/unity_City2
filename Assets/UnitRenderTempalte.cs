@@ -2,20 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using static ResidentialUnitGenerator;
 
 public class UnitRenderTempalte : MonoBehaviour
 {
 
-
     public ResidentialUnitGenerator residentialUnitGenerator;
     public Button roomPlus;
     public Button roomMinus;
-    private int roomCount;
+    public Button roomShuffle;
+    public int roomCount;
 
+    public TMP_Text roomNumberDisplay;
+
+    
     public void Start()
     {
         roomPlus.onClick.AddListener(PlusRoom);
         roomMinus.onClick.AddListener(MinusRoom);
+        roomShuffle.onClick.AddListener(ShuffleRoom);
+        InitUnitRenderTempalte();
+
+
     }
 
     public void Update()
@@ -23,18 +32,41 @@ public class UnitRenderTempalte : MonoBehaviour
         
     }
 
-    private void PlusRoom()
+    private void ShuffleRoom()
     {
         residentialUnitGenerator.DeleteRender();
-        residentialUnitGenerator.RenderRoom(roomCount);
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+    }
+
+    private void PlusRoom() 
+    {
+        residentialUnitGenerator.DeleteRender();
+        roomCount++;
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+        roomNumberDisplay.text = roomCount.ToString();
     }
 
     private void MinusRoom()
     {
         residentialUnitGenerator.DeleteRender();
-        residentialUnitGenerator.RenderRoom(roomCount);
+        if (roomCount > 0)
+        {
+            roomCount--;
+        }
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+        roomNumberDisplay.text = roomCount.ToString();
 
     }
 
+    public void InitUnitRenderTempalte()
+    {
+
+        residentialUnitGenerator.DeleteRender();
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+
+        roomNumberDisplay.text = roomCount.ToString();
+
+
+    }
 
 }

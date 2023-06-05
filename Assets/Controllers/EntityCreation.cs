@@ -48,6 +48,21 @@ public class EntityCreation : MonoBehaviour
 
     public PopupWarningController popupWarningController;
 
+    public UnitRenderTempalte unitRenderTemplate;
+    public TMP_Text fabCost;
+
+
+    public ResidentialUnitGenerator residentialUnitGenerator;
+    public Button roomPlus;
+    public Button roomMinus;
+    public Button roomShuffle;
+
+    public int roomCount;
+
+
+    public TMP_Text roomNumberDisplay;
+
+
     public void InitEntityCreation()
     {
         isMenuOpen = false;
@@ -66,7 +81,7 @@ public class EntityCreation : MonoBehaviour
             allUnitNameTemplateDropdown.dropdown.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifferenceUnitChange(allUnitNameTemplateDropdown.dropdown); });
 
             //allUnitNameTemplateDropdown.dropdown.onDropdownClick.AddListener(UpdateEntityCreation);
-
+            InitUnitRenderTemplate();
 
             saveButtonController = saveButton.GetComponent<ButtonController>();
             saveButtonController.button.onClick.AddListener(SaveTemplate);
@@ -89,6 +104,66 @@ public class EntityCreation : MonoBehaviour
         }
 
         //templateManager.InitTemplateManager();
+    }
+
+    public void InitUnitRenderTemplate()
+    {
+        roomPlus.onClick.AddListener(PlusRoom);
+        roomMinus.onClick.AddListener(MinusRoom);
+        roomShuffle.onClick.AddListener(ShuffleRoom);
+        InitUnitRenderTempalte();
+
+        UpdateFabCostView();
+
+    }
+
+    private void ShuffleRoom()
+    {
+        residentialUnitGenerator.DeleteRender();
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+        UpdateFabCostView();
+
+    }
+
+    private void PlusRoom()
+    {
+        residentialUnitGenerator.DeleteRender();
+        roomCount++;
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+        roomNumberDisplay.text = roomCount.ToString();
+        UpdateFabCostView();
+
+    }
+
+    private void MinusRoom()
+    {
+        residentialUnitGenerator.DeleteRender();
+        if (roomCount > 0)
+        {
+            roomCount--;
+        }
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+        roomNumberDisplay.text = roomCount.ToString();
+        UpdateFabCostView();
+
+    }
+
+    public void InitUnitRenderTempalte()
+    {
+
+        residentialUnitGenerator.DeleteRender();
+        residentialUnitGenerator.StartUnitGenerator(roomCount);
+
+        roomNumberDisplay.text = roomCount.ToString();
+        UpdateFabCostView();
+
+    }
+    public void UpdateFabCostView()
+    {
+        float cost = roomCount * 20;
+        string costString = cost.ToString();
+
+        fabCost.text = "Fabrication Cost: $" + costString;
     }
 
 

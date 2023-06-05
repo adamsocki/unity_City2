@@ -31,7 +31,7 @@ public class UIGamePlayController : MonoBehaviour
         {
             if (entity.GetIsMenuOpen())
             {
-               // entity.UpdateEntityCreation();
+                entity.UpdateEntityCreation();
 
                 //foreach(EntityCreation restOfEntities in entities)
                 //{

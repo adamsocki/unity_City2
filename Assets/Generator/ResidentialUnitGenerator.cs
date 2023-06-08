@@ -226,9 +226,13 @@ public class ResidentialUnitGenerator : MonoBehaviour
 
 
 
+
+
+
         float floorWidth = floorPrefab.GetComponent<Renderer>().bounds.size.z;
         for (int x = 0; x < _size; x++)
         {
+
 
 
             for (int z = 0; z < _size_y; z++)

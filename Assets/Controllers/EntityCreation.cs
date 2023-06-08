@@ -59,6 +59,11 @@ public class EntityCreation : MonoBehaviour
 
     public int roomCount;
 
+    public TMP_Text roomSizeCatText;
+    public TMP_Text roomSizeNumText;
+    public Slider roomSizeSlider;
+    public float roomSizeSliderValue;
+
 
     public TMP_Text roomNumberDisplay;
 
@@ -96,6 +101,9 @@ public class EntityCreation : MonoBehaviour
 
             popupWarningController.gameObject.SetActive(false);
 
+            roomSizeSlider.onValueChanged.AddListener(OnSizeSliderValueChanged);
+
+
         }
         else if (templateType == TemplateType.Building) 
         {
@@ -115,6 +123,11 @@ public class EntityCreation : MonoBehaviour
 
         UpdateFabCostView();
 
+    }
+
+    public void OnSizeSliderValueChanged(float value)
+    {
+        roomSizeSliderValue = value;
     }
 
     private void ShuffleRoom()

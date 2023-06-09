@@ -9,6 +9,12 @@ public enum TemplateType
     Building
 }
 
+public enum StyleType
+{
+    Flat
+}
+
+
 public class TemplateManager : MonoBehaviour
 {
     //public List<EntityHandle> templateHandles;

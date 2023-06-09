@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
+
+
 
 public class EntityCreation : MonoBehaviour
 {
@@ -40,6 +44,9 @@ public class EntityCreation : MonoBehaviour
     public TemplateManager templateManager;
     public UnitManager unitManager;
 
+    private StyleType styleType;
+    public TMP_Dropdown styleTypeDropdown;
+
     private int currentIndexAllUnit;
 
     private ButtonController saveButtonController;
@@ -50,7 +57,9 @@ public class EntityCreation : MonoBehaviour
 
     public UnitRenderTempalte unitRenderTemplate;
     public TMP_Text fabCost;
-
+    private float areaRate = 0.00f;
+    private float areaCostMod = 0.00f;
+    public float cost = 0.00f;
 
     public ResidentialUnitGenerator residentialUnitGenerator;
     public Button roomPlus;
@@ -61,6 +70,8 @@ public class EntityCreation : MonoBehaviour
 
     public TMP_Text roomSizeCatText;
     public TMP_Text roomSizeNumText;
+    public TMP_Text roomSizeValText;
+    public TMP_Text roomSizeValRate;
     public Slider roomSizeSlider;
     public float roomSizeSliderValue;
 
@@ -82,6 +93,9 @@ public class EntityCreation : MonoBehaviour
             unitTypeDropdown.InitEnumTypeDropdown();
             unitTypeDropdown.dropdown.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifference(); });
 
+            styleTypeDropdown.options = System.Enum.GetNames(typeof(StyleType)).Select(x => new TMP_Dropdown.OptionData(x)).ToList();
+            styleTypeDropdown.onValueChanged.AddListener(delegate { UpdateUnitRate(); });
+
             allUnitNameTemplateDropdown.InitTemplateDropdown();
             allUnitNameTemplateDropdown.dropdown.onValueChanged.AddListener(delegate { DetectTemplateUnsavedDifferenceUnitChange(allUnitNameTemplateDropdown.dropdown); });
 
@@ -102,13 +116,15 @@ public class EntityCreation : MonoBehaviour
             popupWarningController.gameObject.SetActive(false);
 
             roomSizeSlider.onValueChanged.AddListener(OnSizeSliderValueChanged);
+            roomSizeSliderValue = 0.0f;
+            UpdateUnitArea(roomSizeSliderValue);
+            UpdateUnitRate();
 
 
         }
         else if (templateType == TemplateType.Building) 
         {
             fabricatedUnitDropdown.InitFabricatedUnitDropdown();
-            
         }
 
         //templateManager.InitTemplateManager();
@@ -128,6 +144,38 @@ public class EntityCreation : MonoBehaviour
     public void OnSizeSliderValueChanged(float value)
     {
         roomSizeSliderValue = value;
+        Debug.Log("value : " + value);
+        UpdateUnitArea(value);
+    
+    }
+
+    private void UpdateUnitRate()
+    {
+        switch ((StyleType)styleTypeDropdown.value)
+        {
+            case StyleType.Flat:
+                {
+                    areaRate = 10.00f;
+                    break;
+                }
+            default:
+                {
+                    areaRate = 0.00f;
+                    break;
+                }
+
+        }
+
+        // roomSizeValRate.text = "$" + areaRate.ToString("F" + 2) + "/ sq. meters";
+        UpdateFabCostView();
+    }
+    private void UpdateUnitArea(float value)
+    {
+        
+        areaCostMod = value * 500.0f;
+        roomSizeValText.text = areaCostMod.ToString("F" + 1) + " sq. meters";
+        UpdateFabCostView();
+
     }
 
     private void ShuffleRoom()
@@ -173,10 +221,15 @@ public class EntityCreation : MonoBehaviour
     }
     public void UpdateFabCostView()
     {
-        float cost = roomCount * 20;
-        string costString = cost.ToString();
 
-        fabCost.text = "Fabrication Cost: $" + costString;
+        cost = roomCount * 20;
+       
+        roomSizeValRate.text = "$ " + areaRate.ToString("F" + 2) + " / sq. meter";
+        
+        cost += areaCostMod;
+        
+       
+        fabCost.text = "Fabrication Cost: $" + cost.ToString("F" + 2);
     }
 
 

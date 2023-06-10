@@ -40,6 +40,8 @@ public class Template : Entity
     public int Size { get; set; }
     public string Name { get; set; }
     public int NumberOfRooms { get; set; }
+    public float SizeOfUnit { get; set; }
+    public float FabCost { get; set; }
     public UnitType UnitType { get; set; }
     // Other template properties...
 }

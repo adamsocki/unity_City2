@@ -250,7 +250,7 @@ public class EntityCreation : MonoBehaviour
             if (saveButton.GetComponent<ButtonController>().isActive)
             {
                 Debug.Log("save Hit");
-                templateManager.UpdateTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle(), templateType, 10, 2, unitTypeDropdown.SelectedUnitType, nameInputField.text);
+                templateManager.UpdateTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle(), templateType, 10, roomCount, unitTypeDropdown.SelectedUnitType, nameInputField.text, areaCostMod, cost);
                 allUnitNameTemplateDropdown.UpdateTemplateDropdown();
                 allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
                 DetectTemplateUnsavedDifference();
@@ -307,7 +307,7 @@ public class EntityCreation : MonoBehaviour
 
             // 3. create new blank template
             nameInputField.text = string.Empty;
-            EntityHandle newTemplateHandle = templateManager.CreateTemplate(TemplateType.Unit, 10, 2, UnitType.Residential, nameInputField.text);
+            EntityHandle newTemplateHandle = templateManager.CreateTemplate(TemplateType.Unit, 10, roomCount, UnitType.Residential, nameInputField.text, areaCostMod, cost);
             allUnitNameTemplateDropdown.UpdateTemplateDropdown();
             allUnitNameTemplateDropdown.dropdown.RefreshShownValue();
             saveButtonController.IsActive = true;
@@ -503,6 +503,8 @@ public class EntityCreation : MonoBehaviour
                 Template currentSelectedTemplate = templateManager.GetTemplate(allUnitNameTemplateDropdown.GetSelectedEntityHandle());
 
                 EntityHandle newFabricatedUnitHandle = unitManager.CreateUnit(currentSelectedTemplate);
+            
+            
             }
 
 

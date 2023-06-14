@@ -12,6 +12,8 @@ public class BuildingMaker : MonoBehaviour
     public Image buildingConstructorUI;
 
     public Button[] buildingConstructorButtons;
+
+    //public 
     
 
 

@@ -27,12 +27,9 @@ public class Entity
     // Common properties for all entities...
 }
 
-public class Building : Entity
-{
-    // Unique properties for buildings...
-    public int floors;
-    public string address;
-}
+
+
+
 
 public class Template : Entity
 {

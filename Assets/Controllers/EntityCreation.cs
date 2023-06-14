@@ -125,9 +125,16 @@ public class EntityCreation : MonoBehaviour
         else if (templateType == TemplateType.Building) 
         {
             fabricatedUnitDropdown.InitFabricatedUnitDropdown();
+            //fabricatedUnitDropdown.dropdown.onValueChanged.AddListener(delegate { DetectFabUnitUpdate(); });
+
         }
 
         //templateManager.InitTemplateManager();
+    }
+
+    public void DetectFabUnitUpdate()
+    {
+        fabricatedUnitDropdown.InitFabricatedUnitDropdown();
     }
 
     public void InitUnitRenderTemplate()

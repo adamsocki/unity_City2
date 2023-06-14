@@ -13,6 +13,8 @@ public class UIGamePlayController : MonoBehaviour
     public EntityCreation[] entities;
     public EntityCreation unitEntityCreation;
     public EntityCreation buildingEntityCreation;
+    
+    public BuildingMaker buildingMaker;
 
     public void InitUIGamePLayController()
     {
@@ -21,6 +23,12 @@ public class UIGamePlayController : MonoBehaviour
         {
             entity.InitEntityCreation();
         }
+
+
+
+        buildingMaker.InitBuildingMaker();
+
+
        // unitEntityCreation.InitEntityCreation();
         //buildingEntityCreation.InitEntityCreation();
     }

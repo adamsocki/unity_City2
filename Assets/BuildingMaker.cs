@@ -17,6 +17,8 @@ public class BuildingMaker : MonoBehaviour
 
     public Button[] buildingConstructorButtons;
 
+
+
     //public 
 
 
@@ -54,6 +56,8 @@ public class BuildingMaker : MonoBehaviour
 
             switch(initBuilding.type)
             {
+                // buildingConstructorButtons.Add()
+
                 case EntityType.Building:
                     // Get Building from entity
                     Building building = (Building)entity;
@@ -119,6 +123,9 @@ public class BuildingMaker : MonoBehaviour
                             break;
                     }
 
+
+
+
                     break;
                 
               
@@ -136,6 +143,8 @@ public class BuildingMaker : MonoBehaviour
 
 
 
+
+
     private void OpenBuildingConstructor()
     {
         if (buildingConstructorUI.gameObject.activeSelf)
@@ -146,6 +155,10 @@ public class BuildingMaker : MonoBehaviour
         {
             buildingConstructorUI.gameObject.SetActive(true);
         }
+    
+        
     }
+
+
 
 }

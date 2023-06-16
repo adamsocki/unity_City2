@@ -309,12 +309,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 0.875
+  m_ScaleFactor: 0.89
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
+  m_FallbackScreenDPI: 95.85
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
@@ -1757,9 +1757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7c95d61c6c99147bee828d65f589fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 0}
-  defaultGameData: {fileID: 0}
-  gameInitData: {fileID: 0}
+  gameData: {fileID: 1714467063}
+  defaultGameData: {fileID: 1470089889}
+  gameInitData: {fileID: 686931924}
 --- !u!1 &180798220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 411385044}
   m_HandleRect: {fileID: 411385043}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -15769,6 +15769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d739f7206740b47b9e10f2d6c49f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameInitData: {fileID: 686931924}
+  entityManager: {fileID: 851503113}
   openBuildingConstructorButton: {fileID: 472861226}
   buildingConstructorUI: {fileID: 258072189}
   buildingConstructorButtons:

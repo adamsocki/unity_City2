@@ -18,9 +18,10 @@ public class ExecutionManager : MonoBehaviour
     public void InitExecutionManager()
     {
         playerManager.InitPlayerManager();
-        uiManager.InitUIManager();
 
         gameInitData.InitGameInitData();
+
+        uiManager.InitUIManager();
 
         buildingManager.InitBuildingMananger();
     }

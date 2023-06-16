@@ -7,12 +7,13 @@ public class GameInitData : MonoBehaviour
  
     public EntityManager entityManager;
 
-    public List<EntityHandle> gameInitBuildingList;
+    public List<EntityHandle> gameInitBuildingList = new List<EntityHandle>();
 
     public void InitGameInitData()
     {
 
         InitBuildings();
+
 
     }
 
@@ -36,6 +37,8 @@ public class GameInitData : MonoBehaviour
 
     public void LoadBuildingUI()
     {
+
+
 
 
 

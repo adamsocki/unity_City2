@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum BuildingType
 {
+    DesignerBuilding,
     PortOfEntry
 }
 
@@ -19,10 +20,16 @@ public class Building : Entity
 
 public enum PortOfEntryType
 {
+    designer,
     gate,
     airport,
     seaport,
     busTerminal
+}
+
+public class DesignerBuilding : Building
+{
+
 }
 
 

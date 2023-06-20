@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+
+public class ButtonForBuilding : Button
+{
+    public string displayLetter;
+}
+
+
 public class BuildingMaker : MonoBehaviour
 {
 
@@ -15,9 +23,9 @@ public class BuildingMaker : MonoBehaviour
     public Button openBuildingConstructorButton;
     public Image buildingConstructorUI;
 
-    public Button[] buildingConstructorButtons;
+    public List<ButtonForBuilding> buildingConstructorButtons;
 
-
+    
 
     //public 
 
@@ -35,11 +43,13 @@ public class BuildingMaker : MonoBehaviour
 
 
 
-
+        buildingConstructorUI.GetComponent<RectTransform>().sizeDelta = new Vector2(900, 5);
 
 
         buildingConstructorUI.gameObject.SetActive(false);
 
+
+        
 
 
 
@@ -56,14 +66,19 @@ public class BuildingMaker : MonoBehaviour
 
             switch(initBuilding.type)
             {
-                // buildingConstructorButtons.Add()
-
                 case EntityType.Building:
                     // Get Building from entity
                     Building building = (Building)entity;
-
+                    string displayLetter = "?";
                     switch(building.buildingType)
                     {
+                        case BuildingType.DesignerBuilding:
+                            {
+                                
+                                DesignerBuilding designerBuilding = building as DesignerBuilding;
+                                displayLetter = "D";
+                                break;
+                            }
                         case BuildingType.PortOfEntry:
                             // Get PortOfEntry from building
                             PortOfEntry portOfEntry = (PortOfEntry)building;
@@ -122,9 +137,11 @@ public class BuildingMaker : MonoBehaviour
                         default:
                             break;
                     }
+                    GameObject buttonObject = new GameObject("ButtonForBuilding");
 
-
-
+                    ButtonForBuilding buttonForBuilding = buttonObject.AddComponent<ButtonForBuilding>();
+                    buttonForBuilding.displayLetter = displayLetter;
+                    buildingConstructorButtons.Add(buttonForBuilding);
 
                     break;
                 
@@ -137,6 +154,11 @@ public class BuildingMaker : MonoBehaviour
 
 
 
+
+        }
+
+        foreach(ButtonForBuilding buttonForBuilding in buildingConstructorButtons)
+        {
 
         }
     }

@@ -21,8 +21,7 @@ public class GameInitData : MonoBehaviour
 
     public void InitBuildings()
     {
-        // CREATE ALL INIT BASE GAME BUILDINGS
-
+        // CREATE ALL INIT BASE GAME BUILDING TYPES AVAILBLE TO BUILD
 
         for (int i = 0; i < 4; i++)
         {
@@ -30,6 +29,12 @@ public class GameInitData : MonoBehaviour
             portOfEntry.handle = entityManager.AddEntity(EntityType.Building, portOfEntry);
             gameInitBuildingList.Add(portOfEntry.handle);
         }
+
+        // DESIGN BUILDING
+
+        
+
+
     }
 
 

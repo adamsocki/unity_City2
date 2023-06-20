@@ -2844,11 +2844,11 @@ RectTransform:
   m_Father: {fileID: 200622495}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 21.4}
-  m_SizeDelta: {x: 500, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -3.5801392, y: -3.6000366}
+  m_SizeDelta: {x: 447.8, y: 53.6}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &258072189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6681,7 +6681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -162.1, y: 0.00000023842}
+  m_AnchoredPosition: {x: -162.09375, y: 0}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765608091
@@ -15774,8 +15774,8 @@ MonoBehaviour:
   openBuildingConstructorButton: {fileID: 472861226}
   buildingConstructorUI: {fileID: 258072189}
   buildingConstructorButtons:
-  - {fileID: 630877872}
-  - {fileID: 765608091}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1983597776
 GameObject:
   m_ObjectHideFlags: 0
